@@ -11,7 +11,7 @@
     <groupId>mx.com.gm</groupId>
     <artifactId>ControlClentes</artifactId>
     <version>1.0</version>
-    <name>ControlClientes</name>
+    <name>Control</name>
     <description>HolaMundo con Spring</description>
 
     <properties>

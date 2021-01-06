@@ -2,9 +2,9 @@ package mx.com.gm.servicio;
 
 import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
-import mx.com.gm.dao.UsuarioDao;
+import mx.com.gm.dao.CuentaDao;
+import mx.com.gm.domain.Cuenta;
 import mx.com.gm.domain.Rol;
-import mx.com.gm.domain.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,27 +17,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("userDetailsService")
 @Slf4j
-public class UsuarioService implements UserDetailsService{
+public class CuentaService implements UserDetailsService{
 
     @Autowired
-    private UsuarioDao usuarioDao;
+    private CuentaDao cuentaDao;
     
     @Override
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioDao.findByUsername(username);
+        Cuenta cuenta = cuentaDao.findByUsername(username);
         
-        if(usuario == null){
+        if(cuenta == null){
             throw new UsernameNotFoundException(username);
         }
         
         var roles = new ArrayList<GrantedAuthority>();
         
-        for(Rol rol: usuario.getRoles()){
+        for(Rol rol: cuenta.getRoles()){
             roles.add(new SimpleGrantedAuthority(rol.getNombre()));
         }
         
-        return new User(usuario.getUsername(), usuario.getPassword(), roles);
+        return new User(cuenta.getUsuario(), cuenta.getContrasena(), roles);
     }
     
 }

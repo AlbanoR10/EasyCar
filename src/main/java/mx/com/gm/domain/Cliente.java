@@ -2,6 +2,7 @@ package mx.com.gm.domain;
     
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -48,6 +50,9 @@ public class Cliente implements Serializable{
     @JoinColumn(name="id_contacto", referencedColumnName = "id_contacto")
     @ManyToOne(cascade = CascadeType.ALL)
     private Contacto contacto;
+    
+    @OneToMany(mappedBy = "cliente")
+    private List<Renta> rentas;
     
     
 }
